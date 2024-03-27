@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
- 
+import   { useState, useEffect } from 'react';
 
 const TextUtility = () => {
   const [text, setText] = useState('');
@@ -36,9 +35,23 @@ const TextUtility = () => {
     alert('Text copied to clipboard!');
   };
 
+  const handleTextToSpeech = () => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.voiceURI = 'Google UK English Female'; // Example female voice URI
+      utterance.lang = 'en-GB'; // Example language
+      utterance.volume = 0.5; // Adjust volume to a softer tone if needed
+      speechSynthesis.speak(utterance);
+      const voices = window.speechSynthesis.getVoices();
+    console.log(voices);
+    } else {
+      alert('Text-to-speech is not supported in your browser.');
+    }
+  };
+
   return (
     <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
-      <h2>Text Optimization field </h2>
+      <h2 id="utilityHead">Text Optimization field </h2>
       <textarea
         value={text}
         onChange={handleTextChange}
@@ -49,8 +62,8 @@ const TextUtility = () => {
         <button id="up" onClick={() => handleCaseChange('uppercase')}>Uppercase</button>
         <button id="dow" onClick={() => handleCaseChange('lowercase')}>Lowercase</button>
         <button onClick={handleCopyText}>Copy Text</button>
-       
         <button onClick={handleToggleDarkMode}>Toggle Dark Mode</button>
+        <button onClick={handleTextToSpeech}>Text to Speech</button> {/* New button for text-to-speech */}
         <span>Word Count: {wordCount}</span>
       </div>
     </div>
