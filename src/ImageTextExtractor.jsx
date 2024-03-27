@@ -38,6 +38,12 @@ const ImageTextExtractor = () => {
         <h3>Extracted Text:</h3>
         <textarea value={extractedText} onChange={handleTextChange} rows={10} cols={50} />
         <button onClick={handleCopyText}>Copy Text</button>
+     
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     </div>
   );
