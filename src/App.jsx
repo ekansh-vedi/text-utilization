@@ -4,6 +4,9 @@ import TextUtility from './TextUtility';
 import ImageTextExtractor from './ImageTextExtractor';
 // import WordToPDFConverter from './WordToPdfConverter';
 import AudioToTextConverter from './AudioToText';
+import DictionaryComponent from './Dictionary';
+ 
+ 
  
 
 
@@ -14,6 +17,8 @@ function App() {
       <ImageTextExtractor className="ImageTextExtractor" />   
  {/* <WordToPDFConverter/> */}
  <AudioToTextConverter/>
+ <DictionaryComponent/>
+
     </div>
   );
 }
