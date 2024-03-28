@@ -1,4 +1,4 @@
-import   { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const TextUtility = () => {
   const [text, setText] = useState('');
@@ -42,16 +42,20 @@ const TextUtility = () => {
       utterance.lang = 'en-GB'; // Example language
       utterance.volume = 0.5; // Adjust volume to a softer tone if needed
       speechSynthesis.speak(utterance);
-      const voices = window.speechSynthesis.getVoices();
-    console.log(voices);
     } else {
       alert('Text-to-speech is not supported in your browser.');
     }
   };
 
+  const handleRemoveExtraSpaces = () => {
+    const newText = text.replace(/\s+/g, ' ');
+    setText(newText);
+    setWordCount(newText.trim().split(/\s+/).filter(word => word !== '').length);
+  };
+
   return (
     <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
-      <h2 id="utilityHead">Text Optimization field </h2>
+      <h2 id="utilityHead">Text Optimization field</h2>
       <textarea
         value={text}
         onChange={handleTextChange}
@@ -59,11 +63,12 @@ const TextUtility = () => {
         spellCheck={true}
       />
       <div className="controls">
-        <button id="up" onClick={() => handleCaseChange('uppercase')}>Uppercase</button>
-        <button id="dow" onClick={() => handleCaseChange('lowercase')}>Lowercase</button>
+        <button onClick={() => handleCaseChange('uppercase')}>Uppercase</button>
+        <button onClick={() => handleCaseChange('lowercase')}>Lowercase</button>
         <button onClick={handleCopyText}>Copy Text</button>
         <button onClick={handleToggleDarkMode}>Toggle Dark Mode</button>
-        <button onClick={handleTextToSpeech}>Text to Speech</button> {/* New button for text-to-speech */}
+        <button onClick={handleTextToSpeech}>Text to Speech</button>
+        <button onClick={handleRemoveExtraSpaces}>Remove Extra Spaces</button> {/* Button for removing extra spaces */}
         <span>Word Count: {wordCount}</span>
       </div>
     </div>
