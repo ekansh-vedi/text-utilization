@@ -37,11 +37,26 @@ const TextUtility = () => {
 
   const handleTextToSpeech = () => {
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voiceURI = 'Google UK English Female'; // Example female voice URI
-      utterance.lang = 'en-GB'; // Example language
-      utterance.volume = 0.5; // Adjust volume to a softer tone if needed
-      speechSynthesis.speak(utterance);
+      const availableVoices = window.speechSynthesis.getVoices();
+      const voice = availableVoices.find(voice => voice.name === 'Google UK English Female');
+
+      if (voice) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.voice = voice;
+        utterance.volume = 0.5;
+        speechSynthesis.speak(utterance);
+      } else {
+        // Fallback to default voice
+        const defaultVoice = availableVoices.find(voice => voice.default);
+        if (defaultVoice) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.voice = defaultVoice;
+          utterance.volume = 0.5;
+          speechSynthesis.speak(utterance);
+        } else {
+          alert('No compatible voice found.');
+        }
+      }
     } else {
       alert('Text-to-speech is not supported in your browser.');
     }
@@ -55,6 +70,7 @@ const TextUtility = () => {
 
   return (
     <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
+      <span>Word Count: {wordCount}</span>
       <h2 id="utilityHead">Text Optimization field</h2>
       <textarea
         value={text}
@@ -68,8 +84,7 @@ const TextUtility = () => {
         <button onClick={handleCopyText}>Copy Text</button>
         <button onClick={handleToggleDarkMode}>Toggle Dark Mode</button>
         <button onClick={handleTextToSpeech}>Text to Speech</button>
-        <button onClick={handleRemoveExtraSpaces}>Remove Extra Spaces</button> {/* Button for removing extra spaces */}
-        <span>Word Count: {wordCount}</span>
+        <button onClick={handleRemoveExtraSpaces}>Remove Extra Spaces</button>
       </div>
     </div>
   );

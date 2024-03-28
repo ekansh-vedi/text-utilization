@@ -4,21 +4,27 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev" : "vite --host",
+    "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clean": "rm -rf node_modules package-lock.json"
   },
   "dependencies": {
+    "@google-cloud/translate": "^8.1.0",
+    "@react-pdf/pdfkit": "^3.1.9",
+    "@vitalets/google-translate-api": "^9.2.0",
     "antd": "^5.15.4",
     "docx-pdf": "^0.0.1",
     "file-saver": "^2.0.5",
+    "google-translate-api": "^2.3.0",
     "mammoth": "^1.7.1",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^4.0.379",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-pdf": "^7.7.1",
+    "react-dropzone": "^14.2.3",
+    "react-select": "^5.8.0",
     "tesseract.js": "^5.0.5"
   },
   "devDependencies": {

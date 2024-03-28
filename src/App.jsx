@@ -2,14 +2,18 @@
 import './App.css';
 import TextUtility from './TextUtility';
 import ImageTextExtractor from './ImageTextExtractor';
-import WordToPDFConverter from './WordToPdfConverter';
+// import WordToPDFConverter from './WordToPdfConverter';
+import AudioToTextConverter from './AudioToText';
+ 
+
 
 function App() {
   return (
     <div className="App">
       <TextUtility />
-      <ImageTextExtractor className="ImageTextExtractor" /> {/* Add className to apply CSS */}
-<WordToPDFConverter/>
+      <ImageTextExtractor className="ImageTextExtractor" />   
+ {/* <WordToPDFConverter/> */}
+ <AudioToTextConverter/>
     </div>
   );
 }

@@ -1,75 +1,56 @@
-import  { useState } from 'react';
-import { saveAs } from 'file-saver';
-import { PDFDocument, StandardFonts } from 'pdf-lib';
-import mammoth from 'mammoth';
+import   { useState } from 'react';
+import axios from 'axios';
 
-const WordToPDFConverter = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [conversionError, setConversionError] = useState('');
+const WordToPdfConverter = () => {
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
-    setConversionError('');
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
   };
 
-  const convertToPDF = async () => {
-    if (!selectedFile) {
-      setConversionError('Please select a file.');
-      return;
-    }
+  const convertToPdf = async () => {
+    setLoading(true);
 
     try {
-      const arrayBuffer = await readFile(selectedFile);
-      const textResult = await mammoth.extractRawText({ arrayBuffer });
-      let text = textResult.value || ''; // Extracted text content
-      text = text.replace(/\‑/g, '-'); // Replace problematic characters
-      text = text.replace(/\n/g, ' '); // Replace newline characters with spaces
-      text = text.replace(/\t/g, ' '); // Replace tab characters with spaces
+      const formData = new FormData();
+      formData.append('file', file);
 
-      const pdfDoc = await PDFDocument.create();
-      const page = pdfDoc.addPage([612, 792]); // Standard US Letter size
-      const { width, height } = page.getSize();
+      const response = await axios.post(
+        'https://api.cloudmersive.com/convert/docx/to/pdf',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Apikey': 'YOUR_API_KEY' // Replace 'YOUR_API_KEY' with your actual API key
+          }
+        }
+      );
 
-      const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-      const textWidth = font.widthOfTextAtSize(text, 12);
-      const textHeight = font.heightAtSize(12);
-
-      const lines = text.split('\n');
-      const fontSize = Math.min(width / textWidth, height / (textHeight * lines.length));
-
-      page.drawText(text, {
-        x: 50,
-        y: height - 50,
-        size: fontSize,
-        font: font,
-      });
-
-      const pdfBytes = await pdfDoc.save();
-      saveAs(new Blob([pdfBytes], { type: 'application/pdf' }), `${selectedFile.name.replace(/\.[^/.]+$/, '')}.pdf`);
-      alert('Conversion successful. PDF file created.');
+      // Download the converted PDF file
+      const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(pdfBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'converted_document.pdf');
+      document.body.appendChild(link);
+      link.click();
+      setLoading(false);
     } catch (error) {
-      console.error('Conversion error:', error);
-      setConversionError('Error converting the file. Please try again: ' + error.message);
+      console.error('Error converting to PDF:', error);
+      setLoading(false);
     }
-  };
-
-  const readFile = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-      reader.readAsArrayBuffer(file);
-    });
   };
 
   return (
     <div>
       <h2>Word to PDF Converter</h2>
       <input type="file" accept=".docx" onChange={handleFileChange} />
-      {conversionError && <p style={{ color: 'red' }}>{conversionError}</p>}
-      <button onClick={convertToPDF}>Convert to PDF</button>
+      <button onClick={convertToPdf} disabled={!file || loading}>
+        {loading ? 'Converting...' : 'Convert to PDF'}
+      </button>
     </div>
   );
 };
 
-export default WordToPDFConverter;
+export default WordToPdfConverter;
