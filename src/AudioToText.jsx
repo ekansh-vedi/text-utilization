@@ -33,7 +33,7 @@ const AudioToTextConverter = () => {
   };
 
   return (
-    <div className='centered'>
+    <div className='container centered'>
       <h2>Voice to Text Converter</h2>
      
       <textarea
@@ -43,6 +43,7 @@ const AudioToTextConverter = () => {
         rows={6}
         cols={50}
       />
+      <div className='controls'>
        <button onClick={handleTranscribe} disabled={isTranscribing}>
         {isTranscribing ? 'Transcribing...' : 'Transcribe '}
       </button>
@@ -50,6 +51,7 @@ const AudioToTextConverter = () => {
       <button onClick={handleCopyText} disabled={!transcribedText}>
         Copy Text
       </button>
+      </div>
     </div>
   );
 };

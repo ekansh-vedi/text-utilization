@@ -1,0 +1,78 @@
+.container {
+    /* max-width: 800px; */
+    min-height: 90vh;
+    margin: 2em;
+    padding: 2em;
+    /* background-color: #fff; */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .dark-mode {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  #utilityHead {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  .controls {
+    display: flex;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin: 1em;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  span {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  
+    #utilityHead {
+      font-size: 1.5rem;
+    }
+  
+    textarea {
+      min-height: 150px;
+      font-size: 1rem;
+    }
+  
+    .controls {
+      flex-wrap: wrap;
+    }
+  
+    button {
+      flex-basis: calc(50% - 5px);
+    }
+  }
+  
