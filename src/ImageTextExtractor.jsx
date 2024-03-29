@@ -31,7 +31,7 @@ const ImageTextExtractor = () => {
   };
 
   return (
-    <div>
+    <div className='centered'>
       <h2>Image Text Extractor</h2>
       <input type="file" accept="image/*" onChange={handleImageUpload} />
       <div>

@@ -1,18 +1,21 @@
 import { useState } from "react";
 import Axios from "axios";
 import { FaSearch, FaCopy } from "react-icons/fa";
- 
 
 function App() {
-  const [data, setData] = useState("");
+  const [data, setData] = useState(null);
   const [searchWord, setSearchWord] = useState("");
-  
+  const [isValidWord, setIsValidWord] = useState(true);
+
   const getMeaning = async () => {
     try {
       const response = await Axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en_US/${searchWord}`);
       setData(response.data[0]); // Assuming the API response is an array with the first element containing the data
+      setIsValidWord(true); // Set to true when word is found
     } catch (error) {
       console.error("Error fetching meaning:", error);
+      setData(null); // Reset data state
+      setIsValidWord(false); // Set to false when word is not found
     }
   };
 
@@ -41,6 +44,7 @@ function App() {
           <FaSearch size="20px" />
         </button>
       </div>
+      {!isValidWord && <p>Invalid word. Please enter a valid word.</p>}
       {data && (
         <div className="showResults">
           <h2>

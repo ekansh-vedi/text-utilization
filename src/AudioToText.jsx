@@ -33,11 +33,9 @@ const AudioToTextConverter = () => {
   };
 
   return (
-    <div>
+    <div className='centered'>
       <h2>Voice to Text Converter</h2>
-      <button onClick={handleTranscribe} disabled={isTranscribing}>
-        {isTranscribing ? 'Transcribing...' : 'Transcribe'}
-      </button>
+     
       <textarea
         value={transcribedText}
         onChange={() => {}}
@@ -45,6 +43,10 @@ const AudioToTextConverter = () => {
         rows={6}
         cols={50}
       />
+       <button onClick={handleTranscribe} disabled={isTranscribing}>
+        {isTranscribing ? 'Transcribing...' : 'Transcribe '}
+      </button>
+      <br />
       <button onClick={handleCopyText} disabled={!transcribedText}>
         Copy Text
       </button>
