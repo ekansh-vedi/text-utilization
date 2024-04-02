@@ -5,6 +5,7 @@ import ImageTextExtractor from './ImageTextExtractor';
 // import WordToPDFConverter from './WordToPdfConverter';
 import AudioToTextConverter from './AudioToText';
 import DictionaryComponent from './Dictionary';
+import Summarizers from './Summarizers';
  
  
  
@@ -19,6 +20,7 @@ function App() {
  {/* <WordToPDFConverter/> */}
  <AudioToTextConverter/>
  <DictionaryComponent/>
+ <Summarizers/>
     </div>
   );
 }
