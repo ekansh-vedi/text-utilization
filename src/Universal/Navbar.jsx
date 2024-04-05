@@ -59,7 +59,16 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
             <Link to="/dictionary" onClick={closeMobileMenu}>Dictionary</Link>
           </li>
           <li>
-          <Link to="/summarizer" onClick={closeMobileMenu}>Readable Format</Link>
+          <Link to="/summarizer" onClick={closeMobileMenu}>Readable</Link>
+          </li>
+          <li>
+          <Link to="/summarizerV" onClick={closeMobileMenu}>Summarizer</Link>
+          </li>
+          <li>
+          <Link to="/grammarcheckV" onClick={closeMobileMenu}>Grammar Checker</Link>
+          </li>
+          <li>
+          <Link to="/TranslatorV" onClick={closeMobileMenu}>Translate</Link>
           </li>
         </ul>
        

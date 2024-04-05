@@ -9,6 +9,9 @@ import { BrowserRouter as Router, Route, Routes, useNavigate, Navigate, Await } 
 import Navbar from './Universal/Navbar';
 import { useState } from 'react';
 import Summarizers from './Summarizers';
+import SummarizerV from './SummarizerV';
+import GrammarCheckV from './GrammarCheckV';
+import TranslatorV from './TranslatorV';
  
 
 function App() {
@@ -24,8 +27,15 @@ function App() {
         <Route exact path="/audiototextconverter" element={<AudioToTextConverter />} />
         <Route exact path="/dictionary" element={<DictionaryComponent />} />
         <Route exact path="/summarizer" element={<Summarizers />} />
-      </Routes>
-    
+        <Route exact path="/summarizerV" element={<SummarizerV />} />
+         
+        <Route exact path="/grammarcheckV" element={<GrammarCheckV />} />
+      
+        
+        <Route exact path="/translatorV" element={<TranslatorV />} />
+     
+       
+    </Routes>
  
     </div>
   );
