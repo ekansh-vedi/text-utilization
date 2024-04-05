@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Tesseract from 'tesseract.js';
 
 const ImageTextExtractor = () => {
@@ -8,10 +8,14 @@ const ImageTextExtractor = () => {
     const file = e.target.files[0];
     if (!file) return;
 
+
+
     const { data: { text } } = await Tesseract.recognize(file, 'eng');
     setExtractedText(text);
   };
 
+
+  
   const handleCopyText = () => {
     if (!extractedText.trim()) {
       alert('No text to copy!');
@@ -27,7 +31,7 @@ const ImageTextExtractor = () => {
   };
 
   return (
-    <div>
+    <div className='container centered'>
       <h2>Image Text Extractor</h2>
       <input type="file" accept="image/*" onChange={handleImageUpload} />
       <div>
