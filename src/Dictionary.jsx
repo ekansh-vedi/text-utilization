@@ -7,7 +7,29 @@ function App() {
   const [searchWord, setSearchWord] = useState("");
   const [isValidWord, setIsValidWord] = useState(true);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   const getMeaning = async () => {
+
+
+
+
+
+    
     try {
       const response = await Axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en_US/${searchWord}`);
       setData(response.data[0]); // Assuming the API response is an array with the first element containing the data
@@ -18,6 +40,10 @@ function App() {
       setIsValidWord(false); // Set to false when word is not found
     }
   };
+
+
+
+
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text)
