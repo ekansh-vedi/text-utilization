@@ -8,6 +8,7 @@ import DictionaryComponent from './Dictionary';
 import { BrowserRouter as Router, Route, Routes, useNavigate, Navigate, Await } from "react-router-dom"
 import Navbar from './Universal/Navbar';
 import { useState } from 'react';
+import Summarizers from './Summarizers';
  
 
 function App() {
@@ -22,7 +23,10 @@ function App() {
         {/* <Route exact path="/wordtopdfconverter" element={<WordToPDFConverter />} /> */}
         <Route exact path="/audiototextconverter" element={<AudioToTextConverter />} />
         <Route exact path="/dictionary" element={<DictionaryComponent />} />
+        <Route exact path="/summarizer" element={<Summarizers />} />
       </Routes>
+    
+ 
     </div>
   );
 }

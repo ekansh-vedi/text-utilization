@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import   { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
@@ -58,10 +58,28 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
           <li>
             <Link to="/dictionary" onClick={closeMobileMenu}>Dictionary</Link>
           </li>
+          <li>
+          <Link to="/summarizer" onClick={closeMobileMenu}>Readable Format</Link>
+          </li>
         </ul>
-        <button className="dark-mode-btn" onClick={handleDarkModeToggle}>
-          {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-        </button>
+       
+
+        <div className='dark-mode-btn'>
+        <input
+          type="checkbox"
+          className="checkbox"
+          id="checkbox"
+          checked={isDarkMode}
+          onChange={handleDarkModeToggle}
+        />
+        <label htmlFor="checkbox" className="checkbox-label">
+          <i className="fas fa-moon"></i>
+          <i className="fas fa-sun"></i>
+          <span className="ball"></span>
+        </label>
+      </div>
+ 
+ 
       </div>
     </div>
   );
