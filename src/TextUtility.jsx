@@ -1,16 +1,20 @@
-import { useState, useEffect } from 'react';
+import   { useState, useEffect } from 'react';
 
 const TextUtility = () => {
   const [text, setText] = useState('');
   const [wordCount, setWordCount] = useState(0);
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedDarkMode = localStorage.getItem('darkMode');
-    return savedDarkMode ? JSON.parse(savedDarkMode) : false;
-  });
-
+  
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-  }, [darkMode]);
+    const handleSpeechSynthesisVoicesChanged = () => {
+      // Handle changes in speech synthesis voices, if necessary
+    };
+
+    window.speechSynthesis.addEventListener('voiceschanged', handleSpeechSynthesisVoicesChanged);
+
+    return () => {
+      window.speechSynthesis.removeEventListener('voiceschanged', handleSpeechSynthesisVoicesChanged);
+    };
+  }, []);
 
   const handleTextChange = (e) => {
     const newText = e.target.value;
@@ -26,10 +30,6 @@ const TextUtility = () => {
     }
   };
 
-  const handleToggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   const handleCopyText = () => {
     navigator.clipboard.writeText(text);
     alert('Text copied to clipboard!');
@@ -37,26 +37,8 @@ const TextUtility = () => {
 
   const handleTextToSpeech = () => {
     if ('speechSynthesis' in window) {
-      const availableVoices = window.speechSynthesis.getVoices();
-      const voice = availableVoices.find(voice => voice.name === 'Google UK English Female');
-
-      if (voice) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.voice = voice;
-        utterance.volume = 0.5;
-        speechSynthesis.speak(utterance);
-      } else {
-        // Fallback to default voice
-        const defaultVoice = availableVoices.find(voice => voice.default);
-        if (defaultVoice) {
-          const utterance = new SpeechSynthesisUtterance(text);
-          utterance.voice = defaultVoice;
-          utterance.volume = 0.5;
-          speechSynthesis.speak(utterance);
-        } else {
-          alert('No compatible voice found.');
-        }
-      }
+      const utterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(utterance);
     } else {
       alert('Text-to-speech is not supported in your browser.');
     }
@@ -69,7 +51,7 @@ const TextUtility = () => {
   };
 
   return (
-    <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
+    <div className="container">
       <span>Word Count: {wordCount}</span>
       <h2 id="utilityHead">Text Optimization field</h2>
       <textarea
@@ -82,7 +64,6 @@ const TextUtility = () => {
         <button onClick={() => handleCaseChange('uppercase')}>Uppercase</button>
         <button onClick={() => handleCaseChange('lowercase')}>Lowercase</button>
         <button onClick={handleCopyText}>Copy Text</button>
-        <button onClick={handleToggleDarkMode}>Toggle Dark Mode</button>
         <button onClick={handleTextToSpeech}>Text to Speech</button>
         <button onClick={handleRemoveExtraSpaces}>Remove Extra Spaces</button>
       </div>
