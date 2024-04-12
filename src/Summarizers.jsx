@@ -9,10 +9,7 @@ const Summarizer = () => {
   };
 
   const summarizeText = () => {
-    // Logic to summarize the input text into bullet points
-    // You can use libraries like natural language processing (NLP) or create custom logic
-
-    // For demonstration purposes, let's split the text by sentences and create bullet points
+     
     const sentences = inputText.split('. ');
     const summarized = sentences.map((sentence, index) => (
       <li key={index}>{sentence}</li>
